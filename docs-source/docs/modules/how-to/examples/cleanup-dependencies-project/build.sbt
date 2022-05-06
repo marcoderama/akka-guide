@@ -22,8 +22,8 @@ Test / logBuffered := false
 run / fork := false
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.6.18"
-val AkkaHttpVersion = "10.2.7"
+val AkkaVersion = "2.6.19"
+val AkkaHttpVersion = "10.2.9"
 val AkkaManagementVersion = "1.1.2"
 
 // tag::remove-akka-persistence-cassandra-version[]
