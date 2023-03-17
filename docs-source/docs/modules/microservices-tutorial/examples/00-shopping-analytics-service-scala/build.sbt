@@ -19,15 +19,20 @@ Test / parallelExecution := false
 Test / testOptions += Tests.Argument("-oDF")
 Test / logBuffered := false
 
-run / fork := false
+run / fork := true
+// pass along config selection to forked jvm
+run / javaOptions ++= sys.props
+  .get("config.resource")
+  .fold(Seq.empty[String])(res => Seq(s"-Dconfig.resource=$res"))
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.7.0"
-val AkkaHttpVersion = "10.4.0"
+val AkkaVersion = "2.8.0"
+val AkkaHttpVersion = "10.5.0"
 val AkkaManagementVersion = "1.2.0"
-val AkkaPersistenceJdbcVersion = "5.2.0"
+val AkkaPersistenceJdbcVersion = "5.2.1"
 val AlpakkaKafkaVersion = "4.0.0"
-val AkkaProjectionVersion = "1.3.0"
+val AkkaProjectionVersion = "1.3.1"
+val AkkaDiagnosticsVersion = "2.0.0"
 val ScalikeJdbcVersion = "3.5.0"
 
 enablePlugins(AkkaGrpcPlugin)
@@ -45,7 +50,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-cluster-sharding-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test,
-  // Akka Management powers Health Checks and Akka Cluster Bootstrapping
+  // Akka Management powers Health Checks, Akka Cluster Bootstrapping, and Akka Diagnostics
   "com.lightbend.akka.management" %% "akka-management" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
   "com.typesafe.akka" %% "akka-http-spray-json" % AkkaHttpVersion,
@@ -53,6 +58,7 @@ libraryDependencies ++= Seq(
   "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
   "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % AkkaManagementVersion,
   "com.typesafe.akka" %% "akka-discovery" % AkkaVersion,
+  "com.lightbend.akka" %% "akka-diagnostics" % AkkaDiagnosticsVersion,
   // Common dependencies for logging and testing
   "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.11",

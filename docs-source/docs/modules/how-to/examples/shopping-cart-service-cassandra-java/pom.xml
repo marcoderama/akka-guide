@@ -19,7 +19,7 @@
     <properties>
         <!-- end::akka-persistence-cassandra[] -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akka-grpc-maven-plugin.version>2.2.1</akka-grpc-maven-plugin.version>
+        <akka-grpc-maven-plugin.version>2.3.0</akka-grpc-maven-plugin.version>
         <scala.binary.version>2.13</scala.binary.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
@@ -27,6 +27,7 @@
              It can be defined with -Dversion.number=0.1-SNAPSHOT if git is not used -->
         <version.number>${git.commit.time}-${git.commit.id.abbrev}</version.number>
         <!-- tag::akka-persistence-cassandra[] -->
+        <akka-diagnostics.version>2.0.0</akka-diagnostics.version>
     </properties>
     <!-- end::akka-persistence-cassandra[] -->
 
@@ -35,7 +36,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-dependencies_${scala.binary.version}</artifactId>
-                <version>22.10.3</version>
+                <version>22.10.4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -108,6 +109,11 @@
         <dependency>
             <groupId>com.lightbend.akka.grpc</groupId>
             <artifactId>akka-grpc-runtime_${scala.binary.version}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lightbend.akka</groupId>
+            <artifactId>akka-diagnostics_${scala.binary.version}</artifactId>
+            <version>${akka-diagnostics.version}</version>
         </dependency>
 
         <dependency>
