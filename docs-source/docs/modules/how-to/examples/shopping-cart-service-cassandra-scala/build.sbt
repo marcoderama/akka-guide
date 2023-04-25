@@ -33,7 +33,7 @@ val AkkaManagementVersion = "1.2.0"
 val AkkaPersistenceCassandraVersion = "1.1.0"
 
 // end::akka-persistence-cassandra[]
-val AlpakkaKafkaVersion = "4.0.1"
+val AlpakkaKafkaVersion = "4.0.2"
 val AkkaProjectionVersion = "1.3.1"
 val AkkaDiagnosticsVersion = "2.0.0"
 
