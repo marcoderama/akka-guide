@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akka-grpc-maven-plugin.version>2.3.0</akka-grpc-maven-plugin.version>
+        <akka-grpc-maven-plugin.version>2.3.2</akka-grpc-maven-plugin.version>
         <scala.binary.version>2.13</scala.binary.version>
         <!-- needs to be defined to allow for overriding through mvn exec:exec -DAPP_CONFIG=local1.conf -->
         <APP_CONFIG>application.conf</APP_CONFIG>
@@ -32,7 +32,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-dependencies_${scala.binary.version}</artifactId>
-                <version>22.10.5</version>
+                <version>23.05.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -255,7 +255,7 @@
                         <image>
                             <name>%a</name>
                             <build>
-                                <from>docker.io/library/adoptopenjdk:11-jre-hotspot</from>
+                                <from>docker.io/library/eclipse-temurin:17.0.3_7-jre-jammy</from>
                                 <tags>
                                     <tag>${version.number}</tag>
                                 </tags>

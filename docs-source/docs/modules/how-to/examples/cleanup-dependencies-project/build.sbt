@@ -26,9 +26,9 @@ run / javaOptions ++= sys.props
   .fold(Seq.empty[String])(res => Seq(s"-Dconfig.resource=$res"))
 Global / cancelable := false // ctrl-c
 
-val AkkaVersion = "2.8.0"
-val AkkaHttpVersion = "10.5.0"
-val AkkaManagementVersion = "1.2.0"
+val AkkaVersion = "2.8.2"
+val AkkaHttpVersion = "10.5.2"
+val AkkaManagementVersion = "1.4.0"
 
 // tag::remove-akka-persistence-cassandra-version[]
 val AkkaPersistenceCassandraVersion = "1.1.0"
@@ -40,7 +40,7 @@ val AkkaPersistenceJdbcVersion = "5.2.1"
 val AlpakkaKafkaVersion = "4.0.2"
 // end::remove-alpakka-kafka-version[]
 // tag::remove-akka-projection-version[]
-val AkkaProjectionVersion = "1.3.1"
+val AkkaProjectionVersion = "1.4.0"
 // end::remove-akka-projection-version[]
 val AkkaDiagnosticsVersion = "2.0.0"
 
@@ -49,7 +49,7 @@ enablePlugins(AkkaGrpcPlugin)
 // end::remove-grpc-plugin[]
 
 enablePlugins(JavaAppPackaging, DockerPlugin)
-dockerBaseImage := "docker.io/library/adoptopenjdk:11-jre-hotspot"
+dockerBaseImage := "docker.io/library/eclipse-temurin:17.0.3_7-jre-jammy"
 dockerUsername := sys.props.get("docker.username")
 dockerRepository := sys.props.get("docker.registry")
 ThisBuild / dynverSeparator := "-"

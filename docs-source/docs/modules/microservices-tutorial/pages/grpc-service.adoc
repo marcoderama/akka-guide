@@ -196,6 +196,148 @@ Note the logging from the `ShoppingCartServiceImpl` in the console.
 
 You can stop the service with `ctrl-c`.
 
+== Run in Kubernetes
+
+As an alternative, you can run the service in https://kubernetes.io/[Kubernetes {tab-icon}, window="tab"].
+
+=== Build the service
+The [.group-scala]#`build.sbt and project/plugins.sbt`# [.group-java]#`pom.xml`# contains build plugin settings for building a Docker image.
+
+[.group-java]
+****
+The version number of the image is derived from the git commit. If you see error "Given Docker name 'shopping-cart-service:${git.commit.time}-${git.commit.id.abbrev}' is invalid" it is because the directory is not a git repository. You can enable git for the directory with the following commands.
+
+[source,shell script]
+----
+git init
+git add .
+git commit -m "some descriptive commit message"
+----
+
+Alternatively the version can be specified with `-Dversion.number=0.1-SNAPSHOT`.
+----
+mvn -Dversion.number=0.1-SNAPSHOT -DskipTests -Ddocker.registry=803424716218.dkr.ecr.eu-central-1.amazonaws.com clean package docker:push
+----
+****
+[.group-scala]
+****
+The version number of the image, as well as from the project itself, is derived from the git commit using https://github.com/sbt/sbt-dynver[sbt-dynver {tab-icon}, window="tab"]. If your project is not being versioned with git, you will see a fixed version number (eg: `HEAD-20210119-1515`). You can enable git for the directory with the following commands.
+
+[source,shell script]
+----
+git init
+git add .
+git commit -m "some descriptive commit message"
+----
+
+Alternatively you can add the version to your `build.sbt` file and maintain it manually.
+
+[source,shell script]
+----
+version := "1.0.0"
+----
+****
+include::partial$build-docker-for-kube.adoc[]
+
+=== Deployment files
+
+You need the following Kubernetes files:
+
+. namespace.json
++
+[source,json]
+----
+include::example$01-shopping-cart-service-scala/kubernetes/namespace.json[]
+----
+
+. rbac.yml
++
+For Akka Cluster bootstrap we need to define role based access control.
++
+[source,yaml]
+----
+include::example$01-shopping-cart-service-scala/kubernetes/rbac.yml[]
+----
+
+. deployment.yml
++
+[source,yaml]
+----
+include::example$01-shopping-cart-service-scala/kubernetes/deployment.yml[]
+----
++
+Update the `image:` in the `deployment.yml` with the specific image version and location you published.
+
+=== Apply with kubectl
+
+Deploy to Kubernetes with:
+
+[source, shell script]
+----
+1) kubectl apply -f kubernetes/namespace.json
+2) kubectl config set-context --current --namespace=shopping-cart-namespace
+3) kubectl apply -f kubernetes/rbac.yml
+4) kubectl apply -f kubernetes/deployment.yml
+
+// all should be in ready state
+5) kubectl get pods
+----
+
+=== Port forward
+
+Create a Kubernetes `Service` and port forward to simplify access to the pods from your local machine:
+
+[source,yaml]
+----
+include::example$01-shopping-cart-service-scala/kubernetes/service.yml[]
+----
+
+[source, shell script]
+----
+kubectl apply -f kubernetes/service.yml
+----
+
+Start port forward with:
+
+[source, shell script]
+----
+kubectl port-forward svc/shopping-cart-service-svc 8101:8101
+----
+
+=== Exercise the service in Kubernetes
+
+Use `https://github.com/fullstorydev/grpcurl[grpcurl]` to exercise the service:
+
+. Add 3 socks to a cart:
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1", "itemId":"socks", "quantity":3}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
+
+. Add 2 t-shirts to the same cart:
++
+[source,shell script]
+----
+grpcurl -d '{"cartId":"cart1", "itemId":"t-shirt", "quantity":2}' -plaintext 127.0.0.1:8101 shoppingcart.ShoppingCartService.AddItem
+----
+
+. You can list the pods with:
++
+[source,shell script]
+----
+kubectl get pods
+----
+
+. Inspect logs from a separate terminal window:
++
+[source,shell script]
+----
+kubectl logs -f <shopping-cart-service pod name from above>
+----
++
+Note the logging from the `ShoppingCartServiceImpl` in the console that is running `kubectl logs -f`.
+
 :!sectnums:
 == Learn more
 

@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>com.lightbend.akka</groupId>
                 <artifactId>akka-dependencies_${scala.binary.version}</artifactId>
-                <version>22.10.5</version>
+                <version>23.05.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -198,7 +198,7 @@
                         <image>
                             <name>%a</name>
                             <build>
-                                <from>docker.io/library/adoptopenjdk:11-jre-hotspot</from>
+                                <from>docker.io/library/eclipse-temurin:17.0.3_7-jre-jammy</from>
                                 <tags>
                                     <tag>${version.number}</tag>
                                 </tags>

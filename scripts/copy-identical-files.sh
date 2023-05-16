@@ -601,3 +601,19 @@ cp ${SRC} ${tutorial_root}/02-shopping-cart-service-java/src/main/resources/
 declare SRC="${tutorial_root}/02-shopping-cart-service-scala/src/main/protobuf/ShoppingCartService.proto"
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/src/main/protobuf/
 cp ${SRC} ${tutorial_root}/01-shopping-cart-service-java/src/main/protobuf/
+
+# shopping cart service kubernetes files
+declare SRC="${tutorial_root}/00-shopping-cart-service-scala/kubernetes"
+cp -R ${SRC} ${tutorial_root}/01-shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/02-shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/03-shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/04-shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/05-shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/shopping-cart-service-scala/
+cp -R ${SRC} ${tutorial_root}/00-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/01-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/02-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/03-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/04-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/05-shopping-cart-service-java/
+cp -R ${SRC} ${tutorial_root}/shopping-cart-service-java/
