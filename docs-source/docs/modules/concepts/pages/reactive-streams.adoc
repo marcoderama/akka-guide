@@ -20,7 +20,7 @@ The main goal of Reactive Streams is to govern the exchange of stream data acros
 NOTE: The above is an excerpt from {reactive-streams}[Reactive Streams {tab-icon}, window="tab"]
 
 
-When a consumer controls the rate of consumption, it is impossible to overwhelm it. This one of the {reactive-principles}/patterns/coordinate-dataflow.html[Reactive Patterns {tab-icon}, window="tab"]. Such flow control, though, must be managed end-to-end.
+When a consumer controls the rate of consumption, it is impossible to overwhelm it. This is one of the {reactive-principles}/patterns/coordinate-dataflow.html[Reactive Patterns {tab-icon}, window="tab"]. Such flow control, though, must be managed end-to-end.
 
 xref:akka-stream.adoc[] implements the Reactive Streams TCK, so it is 100% compatible with any other Reactive Streams implementation on the JVM.
 
