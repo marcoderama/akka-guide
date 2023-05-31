@@ -19,7 +19,7 @@ Second, an address needs to be virtual in the sense that it can, and often does,
 
 - _Active-Passive state replication between instances of a stateful service_: If a service is stateful then sticky routing needs to be used— sending every request to a particular instance. This scheme also requires each state change to be made available to the passive instances of the service—the replicas—each one ready to take over serving the requests in case of failover.
 
-- _Relocation of a stateful service_: It can be beneficial to move a service instance from one location to another in order to improve locality of reference21 or resource efficiency.
+- _Relocation of a stateful service_: It can be beneficial to move a service instance from one location to another in order to improve locality of reference or resource efficiency.
 
 Using virtual addresses means that the client can stay oblivious to all of these low-level runtime concerns—it communicates with a service through an address and does not have to care about how and where the service is currently configured to operate.
 
