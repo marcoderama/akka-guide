@@ -12,7 +12,7 @@ Memory Image is a programming pattern in which data stored on the database resid
 [#sharded_entities]
 == Sharded Entities
 
-One way to meet the two requirements above is to ensure only one copy of the data is on memory at any given time. That's also known as {reactive-principles}/patterns/isolate-mutations.html[isolating the mutations {tab-icon}, window="tab"]. Then, because your data may exceed the capacity of your memory, you can shard the data and keep a chunk on each of your application nodes. Finally, each shard of data uses mutual exclusion mechanisms to ensure each mutation happens sequentially.
+One way to meet the two requirements above is to ensure only one copy of the data is in memory at any given time. That's also known as {reactive-principles}/patterns/isolate-mutations.html[isolating the mutations {tab-icon}, window="tab"]. Then, because your data may exceed the capacity of your memory, you can shard the data and keep a chunk on each of your application nodes. Finally, each shard of data uses mutual exclusion mechanisms to ensure each mutation happens sequentially.
 
 {akka}/typed/actors.html#akka-actors[Akka actors {tab-icon}, window="tab"] provide serial access to mutating data out of the box. If an actor, is a direct image of some persistent data it becomes a memory image. Finally, Akka Cluster provides the means to implement the "Sharded Singletons" approach by {akka}/typed/cluster-sharding.html[sharding {tab-icon}, window="tab"] all your actors.
 
