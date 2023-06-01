@@ -10,7 +10,7 @@ The example from the xref:microservices-tutorial:index.adoc[Implementing Microse
 [#docker]
 == Docker
 
-Docker is a popular containerization technology. If you are unfamiliar to containers, we recommend the 
+Docker is a popular containerization technology. If you are unfamiliar with containers, we recommend the 
 {docker-docs}/get-started/[Get Started with Docker {tab-icon}, window="tab"] documentation.
 
 [#kubernetes]
